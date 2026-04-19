@@ -2,9 +2,9 @@
 
 ## 项目简介
 
-这是一个使用 Python 和 pandas 完成的电商零售数据清洗项目。对 Online Retail II 数据集进行基础数据清洗，删除脏数据后导出干净的结果文件，并输出清洗统计报告。
+这个项目使用 Python 和 pandas 对 Online Retail II 数据集做基础清洗，清理掉明显无效的数据后导出结果文件，并生成一份简单的统计报告。
 
-## 我完成的内容
+## 实现内容
 
 - 读取原始数据（`data/online_retail_II.csv`）
 - 删除完全重复的记录
@@ -15,11 +15,11 @@
 - 导出清洗后的结果到 `output/cleaned_retail.csv`
 - 输出统计信息到终端、`output/summary.json` 和 `output/summary.txt`
 
-## 我的实现思路
+## 实现说明
 
 ### 1. 数据读取
 
-使用 `pandas.read_csv()` 读取 `data/` 目录下的原始 CSV 文件。
+使用 `pandas.read_csv()` 读取 `data/online_retail_II.csv`。
 
 ### 2. 数据清洗
 
@@ -35,16 +35,18 @@
 
 ### 3. 导出结果
 
-清洗后的数据导出到 `output/cleaned_retail.csv`。
+清洗后的数据导出到 `output/cleaned_retail.csv`，统计信息同时写入 `summary.json` 和 `summary.txt`。
 
 ### 4. 统计信息
 
-清洗统计信息通过三种方式输出：
+统计结果通过三种方式输出：
 - 终端打印
 - `output/summary.json`（结构化数据）
 - `output/summary.txt`（可读文本）
 
-### 清洗统计结果
+### 本地运行结果
+
+以下结果基于当前仓库中的 `data/online_retail_II.csv`：
 
 | 指标 | 数值 |
 |------|------|
@@ -56,9 +58,9 @@
 | 清洗后数据总行数 | 779,425 |
 | 总共删除记录数 | 287,946 |
 
-## 运行方式（我没有按题目的方式创建虚拟环境而是使用了conda 这应该也是被接受的）
+## 运行方式
 
-1. 创建并激活 conda 虚拟环境：
+1. 创建并激活虚拟环境（下面示例使用 conda）：
 
 ```bash
 conda create -n dev-2026-03 python=3.12
@@ -82,6 +84,8 @@ python scripts/download_data.py
 ```bash
 python main.py
 ```
+
+程序运行后会在终端输出统计信息，并在 `output/` 目录下生成结果文件。
 
 ## 项目结构
 
