@@ -1,185 +1,101 @@
-# dev-2026-03
+# Python 电商零售数据清洗
 
-## 题目名称
+## 项目简介
 
-Python 电商零售数据清洗：完成基础清洗并导出结果
+这是一个使用 Python 和 pandas 完成的电商零售数据清洗项目。对 Online Retail II 数据集进行基础数据清洗，删除脏数据后导出干净的结果文件，并输出清洗统计报告。
 
-## 这是一道什么题
+## 我完成的内容
 
-这道题主要考查：
+- 读取原始数据（`data/online_retail_II.csv`）
+- 删除完全重复的记录
+- 删除 `Customer ID` 为空的记录
+- 删除 `Quantity <= 0` 的记录
+- 删除 `Price <= 0` 的记录
+- 将 `InvoiceDate` 转换为日期时间格式
+- 导出清洗后的结果到 `output/cleaned_retail.csv`
+- 输出统计信息到终端、`output/summary.json` 和 `output/summary.txt`
 
-- Python 基础使用
-- pandas 读取数据
-- 基础数据清洗
-- 文件导出
-- 简单结果统计
-- README 说明能力
+## 我的实现思路
 
-本题不要求复杂数据分析，不要求画图，不要求机器学习。
+### 1. 数据读取
 
-重点是：
+使用 `pandas.read_csv()` 读取 `data/` 目录下的原始 CSV 文件。
 
-- 你能不能把一份真实但有脏数据的数据表洗干净
-- 你能不能把结果导出来
-- 你能不能简单说明你做了什么
+### 2. 数据清洗
 
----
+按顺序执行以下清洗步骤：
 
-## 数据集
+1. **删除重复记录** — 使用 `drop_duplicates()` 删除完全相同的行
+2. **删除空客户** — 使用 `dropna(subset=["Customer ID"])` 删除 Customer ID 为空的记录
+3. **删除无效数量** — 过滤掉 `Quantity <= 0` 的记录（退货、取消等）
+4. **删除无效价格** — 过滤掉 `Price <= 0` 的记录
+5. **日期格式转换** — 使用 `pd.to_datetime()` 将 InvoiceDate 转为标准日期时间类型
 
-本题使用的数据集链接：
+每一步都记录了删除的行数，用于统计报告。
 
-- <https://www.kaggle.com/datasets/mashlyn/online-retail-ii-uci>
+### 3. 导出结果
 
-为了方便开始，本仓库额外提供了一个下载脚本，你可以用 `kagglehub` 自动下载数据。
+清洗后的数据导出到 `output/cleaned_retail.csv`。
 
----
+### 4. 统计信息
 
-## 如果这是模板仓库，你应该怎么开始
+清洗统计信息通过三种方式输出：
+- 终端打印
+- `output/summary.json`（结构化数据）
+- `output/summary.txt`（可读文本）
 
-### 第一步：使用模板创建你自己的仓库
-在 GitHub 页面点击：
+### 清洗统计结果
 
-- `Use this template`
-- 创建你自己的新仓库
+| 指标 | 数值 |
+|------|------|
+| 原始数据总行数 | 1,067,371 |
+| 删除重复记录数 | 34,335 |
+| 删除空 Customer ID 记录数 | 235,151 |
+| 删除 Quantity<=0 记录数 | 18,390 |
+| 删除 Price<=0 记录数 | 70 |
+| 清洗后数据总行数 | 779,425 |
+| 总共删除记录数 | 287,946 |
 
-### 第二步：克隆到本地
+## 运行方式（我没有按题目的方式创建虚拟环境而是使用了conda 这应该也是被接受的）
+
+1. 创建并激活 conda 虚拟环境：
 
 ```bash
-git clone <你的仓库地址>
-cd <你的仓库名>
+conda create -n dev-2026-03 python=3.12
+conda activate dev-2026-03
 ```
 
-### 第三步：创建虚拟环境（必须）
-
-请使用 `venv` 创建虚拟环境。
-
-#### Linux / macOS
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-#### Windows PowerShell
-
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-```
-
-### 第四步：安装依赖
+2. 安装依赖：
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 第五步：下载数据
-
-本仓库提供了下载脚本：
+3. 准备数据（将数据文件放到 `data/` 目录，或运行下载脚本）：
 
 ```bash
 python scripts/download_data.py
 ```
 
-这个脚本会尝试使用 `kagglehub` 下载数据集，并把文件复制到：
-
-```text
-data/
-```
-
-如果你第一次使用 Kaggle 相关工具，可能需要先配置自己的 Kaggle 访问环境。
-
-### 第六步：修改 `main.py`
-
-本题重点完成：
-
-- `main.py`
-
----
-
-## 你的任务
-
-你需要完成以下内容。
-
-### 1. 读取原始数据
-使用 Python 读取 `data/` 目录中的原始数据文件。
-
-### 2. 完成基础数据清洗
-至少完成以下清洗任务：
-
-- 删除完全重复的记录
-- 删除 `Customer ID` 为空的记录
-- 删除 `Quantity` 小于等于 0 的记录
-- 删除 `Price` 小于等于 0 的记录
-- 把 `InvoiceDate` 转成正确的日期时间格式
-
-### 3. 导出清洗后的结果
-请把清洗后的结果导出到 `output/` 目录，例如：
-
-```text
-output/cleaned_retail.csv
-```
-
-### 4. 输出基础清洗统计信息
-请额外输出一份简单统计信息，例如：
-
-- 原始数据总行数
-- 清洗后数据总行数
-- 删除了多少重复数据
-- 删除了多少空客户数据
-- 删除了多少无效数量或价格数据
-
-你可以选择下面任意一种方式输出：
-
-- 直接打印到终端
-- 写到 `output/summary.txt`
-- 写到 `output/summary.json`
-
----
-
-## 运行要求
-
-你的程序至少应该能通过类似下面的方式运行：
+4. 运行程序：
 
 ```bash
 python main.py
 ```
 
----
+## 项目结构
 
-## 提交要求
-
-你需要提交：
-
-1. 完整源码
-2. `README.md`
-3. 清洗后的结果文件
-4. 基础统计结果
-
----
-
-## 评分与验收说明
-
-详细内容请查看：
-
-- [评分细则（面向 agent）](./docs/scoring.md)
-- [验收清单](./docs/checklist.md)
-- [学生 README 模板](./docs/student-readme-template.md)
-
----
-
-## 给候选人的说明
-
-这道题不是考你做复杂分析，而是看你能不能把基础数据处理做对。
-
-请优先保证：
-
-- 先创建并使用虚拟环境
-- 程序可以运行
-- 数据能正确读取
-- 清洗步骤基本完成
-- 结果能正确导出
-- README 能说明做了什么
-
-如果你之前没有真正做过数据清洗，也没关系。你可以先完成最基础版本，再慢慢补统计信息。
+```
+.
+├── main.py                # 主程序：数据清洗逻辑
+├── requirements.txt       # 依赖列表
+├── README.md              # 本说明文件
+├── data/                  # 原始数据目录
+│   └── online_retail_II.csv
+├── output/                # 输出目录
+│   ├── cleaned_retail.csv # 清洗后的数据
+│   ├── summary.json       # 统计信息（JSON）
+│   └── summary.txt        # 统计信息（文本）
+└── scripts/               # 辅助脚本
+    └── download_data.py
+```
