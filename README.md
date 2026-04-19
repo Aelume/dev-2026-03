@@ -6,7 +6,7 @@
 
 ## 实现内容
 
-- 读取原始数据（`data/online_retail_II.csv`）
+- 读取原始数据（`scripts/data/online_retail_II.csv`）
 - 删除完全重复的记录
 - 删除 `Customer ID` 为空的记录
 - 删除 `Quantity <= 0` 的记录
@@ -19,7 +19,7 @@
 
 ### 1. 数据读取
 
-使用 `pandas.read_csv()` 读取 `data/online_retail_II.csv`。
+使用 `pandas.read_csv()` 读取 `scripts/data/online_retail_II.csv`。
 
 ### 2. 数据清洗
 
@@ -46,7 +46,7 @@
 
 ### 本地运行结果
 
-以下结果基于当前仓库中的 `data/online_retail_II.csv`：
+以下结果基于当前仓库中的 `scripts/data/online_retail_II.csv`：
 
 | 指标 | 数值 |
 |------|------|
@@ -73,7 +73,7 @@ conda activate dev-2026-03
 pip install -r requirements.txt
 ```
 
-3. 准备数据（将数据文件放到 `data/` 目录，或运行下载脚本）：
+3. 准备数据（运行下载脚本）：
 
 ```bash
 python scripts/download_data.py
@@ -94,12 +94,12 @@ python main.py
 ├── main.py                # 主程序：数据清洗逻辑
 ├── requirements.txt       # 依赖列表
 ├── README.md              # 本说明文件
-├── data/                  # 原始数据目录
-│   └── online_retail_II.csv
 ├── output/                # 输出目录
 │   ├── cleaned_retail.csv # 清洗后的数据
 │   ├── summary.json       # 统计信息（JSON）
 │   └── summary.txt        # 统计信息（文本）
 └── scripts/               # 辅助脚本
-    └── download_data.py
+    ├── download_data.py   # 数据下载脚本
+    └── data/              # 原始数据目录
+        └── online_retail_II.csv
 ```
